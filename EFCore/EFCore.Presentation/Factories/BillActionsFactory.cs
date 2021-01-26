@@ -1,6 +1,7 @@
 ﻿using EFCore.Domain.Factories;
 using EFCore.Domain.Repositories;
 using EFCore.Presentation.Abstractions;
+using EFCore.Presentation.Actions;
 using EFCore.Presentation.Actions.BillActions;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,8 @@ namespace EFCore.Presentation.Factories
                 new BillsFromCategories(RepositoryFactory.GetRepository<BillRepository>(),
                     RepositoryFactory.GetRepository<CategoryRepository>()),
                 new BillsFromTypes(RepositoryFactory.GetRepository<BillRepository>()),
-                new CancelBill(RepositoryFactory.GetRepository<BillRepository>())
+                new CancelBill(RepositoryFactory.GetRepository<BillRepository>()),
+                new ExitMenuAction(),
             };
 
             return new BillParentAction(actions);

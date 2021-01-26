@@ -1,6 +1,7 @@
 ﻿using EFCore.Domain.Factories;
 using EFCore.Domain.Repositories;
 using EFCore.Presentation.Abstractions;
+using EFCore.Presentation.Actions;
 using EFCore.Presentation.Actions.OfferActions;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace EFCore.Presentation.Factories
                 new AddOfferAction(RepositoryFactory.GetRepository<OfferRepository>(),
                     RepositoryFactory.GetRepository<EmployeeRepository>()),
                 new DeleteOfferAction(RepositoryFactory.GetRepository<OfferRepository>()),
-                new EditOfferAction(RepositoryFactory.GetRepository<OfferRepository>())
+                new EditOfferAction(RepositoryFactory.GetRepository<OfferRepository>()),
+                new ExitMenuAction(),
             };
 
             return new OfferParentAction(actions);

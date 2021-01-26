@@ -1,4 +1,5 @@
 ﻿using EFCore.Presentation.Abstractions;
+using EFCore.Presentation.Actions;
 using EFCore.Presentation.Extensions;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace EFCore.Presentation.Factories
                 CustomerActionsFactory.GetCustomerParentAction(),
                 InventoryActionsFactory.GetInventoryParentAction(),
                 ReportsActionFactory.GetReportsParentAction(),
-                BillActionsFactory.GetBillParentAction()
+                BillActionsFactory.GetBillParentAction(),
+                new ExitMenuAction(),
             };
 
             actions.SetActionIndexes();

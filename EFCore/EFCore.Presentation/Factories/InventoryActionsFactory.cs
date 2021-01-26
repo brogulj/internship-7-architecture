@@ -1,6 +1,7 @@
 ﻿using EFCore.Domain.Factories;
 using EFCore.Domain.Repositories;
 using EFCore.Presentation.Abstractions;
+using EFCore.Presentation.Actions;
 using EFCore.Presentation.Actions.InventoryActions;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace EFCore.Presentation.Factories
             var actions = new List<IAction>
             {
                 new ChangeInventoryStatus(RepositoryFactory.GetRepository<OfferRepository>()),
-                new MoreLessInventory(RepositoryFactory.GetRepository<OfferRepository>())
+                new MoreLessInventory(RepositoryFactory.GetRepository<OfferRepository>()),
+                new ExitMenuAction(),
             };
 
             return new InventoryParentAction(actions);

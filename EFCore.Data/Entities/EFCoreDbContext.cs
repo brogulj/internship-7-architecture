@@ -35,7 +35,7 @@ namespace EFCore.Data.Entities
             configuration
                 .Providers
                 .First()
-                .TryGet("connectionStrings:add:RentACar:connectionString", out var connectionString);
+                .TryGet("connectionStrings:add:EFCore:connectionString", out var connectionString);
 
             var options = new DbContextOptionsBuilder<EFCoreDbContext>().UseSqlServer(connectionString).Options;
             return new EFCoreDbContext(options);

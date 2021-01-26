@@ -57,9 +57,12 @@ namespace EFCore.Presentation.Helpers
                     break;
             }
             Console.WriteLine("Categories: ");
-            foreach (var category in offer.Categories)
+            if (offer.Categories != null)
             {
-                Console.WriteLine($"           {category.Name}");
+                foreach (var category in offer.Categories)
+                {
+                    Console.WriteLine($"           {category.Name}");
+                }
             }
 
         }

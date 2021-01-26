@@ -1,6 +1,7 @@
 ﻿using EFCore.Domain.Factories;
 using EFCore.Domain.Repositories;
 using EFCore.Presentation.Abstractions;
+using EFCore.Presentation.Actions;
 using EFCore.Presentation.Actions.CategoryActions;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace EFCore.Presentation.Factories
             {
                 new AddCategoryAction(RepositoryFactory.GetRepository<CategoryRepository>()),
                 new AddCategoryToOffer(RepositoryFactory.GetRepository<CategoryRepository>()),
-                new RenameCategoryAction(RepositoryFactory.GetRepository<CategoryRepository>())
+                new RenameCategoryAction(RepositoryFactory.GetRepository<CategoryRepository>()),
+                new ExitMenuAction(),
             };
 
             return new CategoryParentAction(actions);

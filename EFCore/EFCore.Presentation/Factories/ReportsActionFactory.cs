@@ -1,6 +1,7 @@
 ﻿using EFCore.Domain.Factories;
 using EFCore.Domain.Repositories;
 using EFCore.Presentation.Abstractions;
+using EFCore.Presentation.Actions;
 using EFCore.Presentation.Actions.ReportActions;
 using System.Collections.Generic;
 
@@ -20,7 +21,8 @@ namespace EFCore.Presentation.Factories
                 new ReportServiceOffers(RepositoryFactory.GetRepository<OfferRepository>()),
                 new ReportSubscriptionOffers(RepositoryFactory.GetRepository<OfferRepository>()),
                 new Top10BestSelling(RepositoryFactory.GetRepository<OfferRepository>()),
-                new YearlyReport(RepositoryFactory.GetRepository<SaleRepository>())
+                new YearlyReport(RepositoryFactory.GetRepository<SaleRepository>()),
+                new ExitMenuAction(),
             };
 
                 return new ReportParentAction(actions);

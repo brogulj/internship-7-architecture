@@ -1,4 +1,5 @@
-﻿using EFCore.Data.Entities.Models;
+﻿using EFCore.Data.Entities;
+using EFCore.Data.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,93 @@ namespace EFCore.Data
                     }
 
                 });
+            builder.Entity<Employee>()
+                .HasData(new List<Employee>
+                {
+                    new Employee
+                    {
+                        Id = 1,
+                        FirstName = "Mate",
+                        LastName = "Matic",
+                        StartOfShift = new DateTime(2020, 1, 1, 8, 0, 0),
+                        EndOfShift = new DateTime(2020, 1, 1, 17, 0, 0),
+                        Availability = true
+                    },
+                    new Employee
+                    {
+                        Id = 2,
+                        FirstName = "Ivan",
+                        LastName = "Ivanovic",
+                        StartOfShift = new DateTime(2020, 1, 1, 8, 0, 0),
+                        EndOfShift = new DateTime(2020, 1, 1, 17, 0, 0),
+                        Availability = true
+                    },
+                    new Employee
+                    {
+                        Id = 3,
+                        FirstName = "Jovan",
+                        LastName = "Jovic",
+                        StartOfShift = new DateTime(2020, 1, 1, 8, 0, 0),
+                        EndOfShift = new DateTime(2020, 1, 1, 17, 0, 0),
+                        Availability = true
+                    }
+                });
+            builder.Entity<Offer>()
+                .HasData(new List<Offer>
+                {
+                    new Offer
+                    {
+                        Id = 1,
+                        Name = "Gitara",
+                        Price = 500,
+                        AmmountLeft = 30,
+                        AmmountSold = 0,
+                        Availability = true,
+                        SaleType = Enums.SaleType.Item
+                    },
+                    new Offer
+                    {
+                        Id = 2,
+                        Name = "Car Wash",
+                        Price = 50,
+                        AmmountLeft = 1000,
+                        AmmountSold = 0,
+                        Availability = true,
+                        SaleType = Enums.SaleType.Service ,
+                        EmployeeId = 1
+                    },
+                    new Offer
+                    {
+                        Id = 3,
+                        Name = "Dog Food",
+                        Price = 10,
+                        AmmountLeft = 100,
+                        AmmountSold = 0,
+                        Availability = true,
+                        SaleType = Enums.SaleType.Item
+                    },
+                    new Offer
+                    {
+                        Id = 4,
+                        Name = "White t-shirt",
+                        Price = 30,
+                        AmmountLeft = 50,
+                        AmmountSold = 0,
+                        Availability = true,
+                        SaleType = Enums.SaleType.Item ,
+                    },
+                    new Offer
+                    {
+                        Id = 5,
+                        Name = "Monthly Repairs",
+                        Price = 100,
+                        AmmountLeft = 10000000,
+                        AmmountSold = 0,
+                        Availability = true,
+                        SaleType = Enums.SaleType.Subscription
+                    }
+                }
+                );
         }
     }
 }
