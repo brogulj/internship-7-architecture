@@ -32,7 +32,7 @@ namespace EFCore.Domain.Repositories
             var profit = 0;
             foreach (var sale in DbContext.Sales)
             {
-                if (sale.SaleDate.Year == year)
+                if (sale.SaleDate.Year == year && sale.Validity)
                 {
                     profit += sale.Offer.Price * sale.Ammount;
                 }
@@ -51,9 +51,11 @@ namespace EFCore.Domain.Repositories
                 .Where(s => s.SaleType == type)
                 .ToList();
         }
-        public void AddSale()
+        public ICollection<Sale> GetActiveServices()
         {
-
+            return DbContext.Sales
+                .Where(s => s.Validity && s.SaleType == SaleType.Service && s.EndTime > DateTime.Now && s.StartTime < DateTime.Now)
+                .ToList();
         }
     }
 }

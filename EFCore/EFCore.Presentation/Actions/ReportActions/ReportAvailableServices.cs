@@ -26,6 +26,7 @@ namespace EFCore.Presentation.Actions.ReportActions
                 PrintHelpers.PrintOffer(service);
             }
             Console.ReadLine();
+            Console.Clear();
         }
     }
 }

@@ -16,6 +16,16 @@ namespace EFCore.Domain.Repositories
         }
         public ResponseResultType Add(Customer customer)
         {
+            foreach (var customerDb in DbContext.Customers)
+            {
+                if (customer.OIB == customerDb.OIB)
+                {
+                    Console.WriteLine("Customer with same oib already exists");
+                    Console.ReadLine();
+                    Console.Clear();
+                    return ResponseResultType.ValidationError;
+                }
+            }
             DbContext.Customers.Add(customer);
             return SaveChanges();
         }
@@ -51,6 +61,14 @@ namespace EFCore.Domain.Repositories
         public ICollection<Customer> GetAll()
         {
             return DbContext.Customers.ToList();
+        }
+        public ICollection<Bill> GetSubscriptionBillsByCustomer(Customer customer)
+        {
+            return DbContext.Customers
+                .Find(customer.Id)
+                .Bills
+                .Where(b => b.SaleType == Data.Enums.SaleType.Subscription)
+                .ToList();
         }
     }
 }

@@ -32,6 +32,7 @@ namespace EFCore.Presentation.Actions.ReportActions
             var category = _categoryRepository.FindById( _categoryRepository.FindIdBYName(categoryName));
             Console.WriteLine($"Number of sales in {category.Name}: {_offerRepository.SalesByCategory(category)}");
             Console.ReadLine();
+            Console.Clear();
         }
     }
 }

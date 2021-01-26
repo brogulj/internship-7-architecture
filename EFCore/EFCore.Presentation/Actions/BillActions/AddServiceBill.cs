@@ -27,7 +27,7 @@ namespace EFCore.Presentation.Actions.BillActions
         }
         public void Call()
         {
-            var bill = _billRepository.AddNewBill(Data.Enums.SaleType.Service);
+            var bill = new Bill();
 
             Console.WriteLine("Type Id of the customer");
             if (!ReadHelpers.TryReadNumber(out var customerId))
@@ -36,20 +36,24 @@ namespace EFCore.Presentation.Actions.BillActions
                 Console.ReadLine();
                 return;
             }
+
             var customer = _customerRepository.GetAll()
                 .Where(c => c.Id == customerId)
                 .ToList()
                 .First();
+
             if (customer == null)
             {
                 Console.WriteLine("wrong customer id number");
                 Console.ReadLine();
                 return;
             }
+
             foreach (var offer in _offerRepository.GetByType(Data.Enums.SaleType.Service))
             {
                 PrintHelpers.PrintOffer(offer);
             }
+
             Console.WriteLine("Type IDs of offers you'd like to add to this bill");
 
             ReadHelpers.TryReadLineIfNotEmpty(out string IDs);
@@ -61,6 +65,7 @@ namespace EFCore.Presentation.Actions.BillActions
             {
                 selectedServiceOffers.Add(_offerRepository.GetAll().ElementAt(ID));
             }
+
             foreach (var offer in selectedServiceOffers)
             {
                 var sale = new Sale();
@@ -72,23 +77,48 @@ namespace EFCore.Presentation.Actions.BillActions
                         ammount++;
                 }
 
+                var continueOn = true;
+                var activeServices = _saleRepository.GetActiveServices();
+
+                foreach (var service in activeServices)
+                {
+                    if (service.Offer == offer)
+                    {
+                        Console.WriteLine($"Offer {offer.Id} can't be added, someone is already being serviced");
+                        Console.WriteLine();
+                        Console.ReadLine();
+                        continueOn = false;
+                        break;
+                    }
+                }
+
+                if (!continueOn) break;
+                if (offer.AmmountLeft <= 0) break;
+
+                sale.Offer.AmmountLeft -= ammount; 
+                sale.Offer.AmmountSold += ammount; 
                 sale.SaleDate = DateTime.Now;
                 sale.Ammount = ammount;
-                if (ammount > sale.Offer.AmmountLeft)
-                    ammount = sale.Offer.AmmountLeft;
-                sale.Offer.AmmountLeft -= ammount; 
-                sale.Offer.AmmountSold += ammount;
+
+                if (ammount > offer.AmmountLeft)
+                    ammount = offer.AmmountLeft;
+
+
                 sale.SaleType = Data.Enums.SaleType.Service;
                 sale.StartTime = DateTime.Now;
                 sale.EndTime = DateTime.Now.AddHours(ammount);
                 sale.Validity = true;
+
                 sale.Offer = offer;
                 sale.OfferId = offer.Id;
+
                 sale.Bill = bill;
                 sale.BillId = bill.Id;
+
                 _saleRepository.Add(sale);
                 bill.Customer = customer;
                 bill.CustomerId = customer.Id;
+                _billRepository.Add(bill);
                 _billRepository.AddSaleToBill(sale, bill);
                 selectedServiceOffers.RemoveAll(s => s == offer);
             }

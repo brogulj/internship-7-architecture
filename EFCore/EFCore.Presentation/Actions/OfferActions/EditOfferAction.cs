@@ -34,12 +34,16 @@ namespace EFCore.Presentation.Actions.OfferActions
             if (!ReadHelpers.TryReadNumber(out var offerId))
             {
                 Console.WriteLine("wrong input");
+                Console.ReadLine();
+                Console.Clear();
                 return;
             }
             var offerDb = _offerRepository.FindOfferById(offerId);
             if(offerDb == null)
             {
                 Console.WriteLine("wrong input");
+                Console.ReadLine();
+                Console.Clear();
                 return;
             }
 
@@ -48,6 +52,8 @@ namespace EFCore.Presentation.Actions.OfferActions
             if (!ReadHelpers.TryReadLineIfNotEmpty(out var name))
             {
                 Console.WriteLine("wrong input");
+                Console.ReadLine();
+                Console.Clear();
                 return;
             }
             offer.Name = name;
@@ -56,6 +62,8 @@ namespace EFCore.Presentation.Actions.OfferActions
             if (!ReadHelpers.TryReadNumber(out var price))
             {
                 Console.WriteLine("wrong input");
+                Console.ReadLine();
+                Console.Clear();
                 return;
             }
             offer.Price = price;
@@ -64,6 +72,8 @@ namespace EFCore.Presentation.Actions.OfferActions
             if (!ReadHelpers.TryReadNumber(out var ammountLeft))
             {
                 Console.WriteLine("wrong input");
+                Console.ReadLine();
+                Console.Clear();
                 return;
             }
             offer.AmmountLeft = ammountLeft;
@@ -75,6 +85,8 @@ namespace EFCore.Presentation.Actions.OfferActions
             if (!ReadHelpers.TryReadNumber(out var saleType))
             {
                 Console.WriteLine("wrong input");
+                Console.ReadLine();
+                Console.Clear();
                 return;
             }
             switch (saleType)
@@ -90,6 +102,8 @@ namespace EFCore.Presentation.Actions.OfferActions
                     break;
                 default:
                     Console.WriteLine("wrong input");
+                    Console.ReadLine();
+                    Console.Clear();
                     return;
             }
             if (offer.SaleType == SaleType.Service)
@@ -98,6 +112,8 @@ namespace EFCore.Presentation.Actions.OfferActions
                 if (!ReadHelpers.TryReadNumber(out var employeeId))
                 {
                     Console.WriteLine("wrong input");
+                    Console.ReadLine();
+                    Console.Clear();
                     return;
                 }
                 offer.EmployeeId = employeeId;
@@ -106,10 +122,12 @@ namespace EFCore.Presentation.Actions.OfferActions
             {
                 PrintHelpers.PrintOffer(offer);
                 Console.ReadLine();
+                Console.Clear();
                 return;
             }
             Console.WriteLine("Edit unsuccessfull");
             Console.ReadLine();
+            Console.Clear();
             return;
         }
     }

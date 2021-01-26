@@ -32,6 +32,7 @@ namespace EFCore.Presentation.Actions.InventoryActions
             {
                 Console.WriteLine("Error with ID input");
                 Console.ReadLine();
+                Console.Clear();
                 return;
             }
             Console.Clear();
@@ -44,6 +45,7 @@ namespace EFCore.Presentation.Actions.InventoryActions
             {
                 Console.WriteLine("Error with value input");
                 Console.ReadLine();
+                Console.Clear();
                 return;
             }
 
@@ -54,6 +56,8 @@ namespace EFCore.Presentation.Actions.InventoryActions
             if (_offerRepository.Edit(newOffer, offerId) == Domain.Enums.ResponseResultType.Success)
             {
                 Console.WriteLine("Inventory successfully updated!");
+                Console.ReadLine();
+                Console.Clear();
             }
         }
     }

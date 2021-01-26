@@ -43,7 +43,7 @@ namespace EFCore.Domain.Repositories
         public ICollection<Bill> GetBetweenDates(DateTime firstDate, DateTime secondDate)
         {
             return DbContext.Bills
-                .Where(b => b.DateOfSale > firstDate && b.DateOfSale < secondDate)
+                .Where(b => b.DateOfSale > firstDate && b.DateOfSale < secondDate && b.Validity)
                 .ToList();
         }
         public ICollection<Bill> GetByType(SaleType saleType)
@@ -58,7 +58,7 @@ namespace EFCore.Domain.Repositories
             var bills = new List<Bill>();
             foreach (var sale in sales)
             {
-                if (sale.Offer.Categories.Contains(category))
+                if (sale.Offer.Categories.Contains(category) && sale.Bill.Validity)
                 {
                     bills.Add(sale.Bill);
                 }

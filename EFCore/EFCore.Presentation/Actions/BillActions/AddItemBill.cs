@@ -27,7 +27,7 @@ namespace EFCore.Presentation.Actions.BillActions
         }
         public void Call()
         {
-            var bill = _billRepository.AddNewBill(Data.Enums.SaleType.Item);
+            var bill = new Bill();
 
             Console.WriteLine("Type Id of the customer");
             if (!ReadHelpers.TryReadNumber(out var customerId))
@@ -72,21 +72,22 @@ namespace EFCore.Presentation.Actions.BillActions
                         ammount++;
                 }
 
+                sale.Offer = offer;
+                sale.OfferId = offer.Id;
                 sale.SaleDate = DateTime.Now;
                 sale.Ammount = ammount;
-                if (ammount > sale.Offer.AmmountLeft)
-                    ammount = sale.Offer.AmmountLeft;
+                if (ammount > offer.AmmountLeft)
+                    ammount = offer.AmmountLeft;
                 sale.Offer.AmmountLeft -= ammount;
                 sale.Offer.AmmountSold += ammount;
                 sale.SaleType = Data.Enums.SaleType.Item;
                 sale.Validity = true;
-                sale.Offer = offer;
-                sale.OfferId = offer.Id;
                 sale.Bill = bill;
                 sale.BillId = bill.Id;
                 _saleRepository.Add(sale);
                 bill.Customer = customer;
                 bill.CustomerId = customer.Id;
+                _billRepository.Add(bill);
                 _billRepository.AddSaleToBill(sale, bill);
                 selectedItemOffers.RemoveAll(s => s == offer);
             }

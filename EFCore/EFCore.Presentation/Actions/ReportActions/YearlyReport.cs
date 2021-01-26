@@ -11,12 +11,12 @@ namespace EFCore.Presentation.Actions.ReportActions
 {
     public class YearlyReport : IAction
     {
-        private readonly SaleRepository _billRepository;
+        private readonly SaleRepository _saleRepository;
         public int MenuIndex { get; set; }
         public string Label { get; set; }
-        public YearlyReport(SaleRepository billRepository)
+        public YearlyReport(SaleRepository saleRepository)
         {
-            _billRepository = billRepository;
+            _saleRepository = saleRepository;
         }
         public void Call()
         {
@@ -27,9 +27,10 @@ namespace EFCore.Presentation.Actions.ReportActions
                 return;
             }
             var revenue = 0;
-            revenue = _billRepository.ProfitByYear(year);
+            revenue = _saleRepository.ProfitByYear(year);
             Console.WriteLine($"Total revenue in year {year}: {revenue}");
             Console.ReadLine();
+            Console.Clear();
         }
     }
 }

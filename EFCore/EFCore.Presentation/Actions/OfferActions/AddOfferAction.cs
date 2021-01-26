@@ -17,7 +17,7 @@ namespace EFCore.Presentation.Actions.OfferActions
         private readonly OfferRepository _offerRepository;
         private readonly EmployeeRepository _emplyeeRepository;
         public int MenuIndex { get; set; }
-        public string Label { get; set; } = "Add Item Offer";
+        public string Label { get; set; } = "Add Offer";
         public AddOfferAction(OfferRepository offerRepository,
             EmployeeRepository employeeRepository)
         {
@@ -59,6 +59,8 @@ namespace EFCore.Presentation.Actions.OfferActions
             if(!ReadHelpers.TryReadNumber(out var saleType))
             {
                 Console.WriteLine("wrong input");
+                Console.ReadLine();
+                Console.Clear();
                 return;
             }
             switch (saleType)
@@ -74,6 +76,8 @@ namespace EFCore.Presentation.Actions.OfferActions
                     break;
                 default:
                     Console.WriteLine("wrong input");
+                    Console.ReadLine();
+                    Console.Clear();
                     return;
             }
             if(offer.SaleType == SaleType.Service)
@@ -82,12 +86,15 @@ namespace EFCore.Presentation.Actions.OfferActions
                 if(!ReadHelpers.TryReadNumber(out var employeeId))
                 {
                     Console.WriteLine("wrong input");
+                    Console.ReadLine();
+                    Console.Clear();
                     return;
                 }
                 if (_emplyeeRepository.FindById(employeeId) == null)
                 {
                     Console.WriteLine("That employee does not exist");
                     Console.ReadLine();
+                    Console.Clear();
                     return;
                 }
                 offer.EmployeeId = employeeId;
@@ -97,11 +104,11 @@ namespace EFCore.Presentation.Actions.OfferActions
             {
                 PrintHelpers.PrintOffer(offer);
                 Console.ReadLine();
-                return;
+                Console.Clear();
             }
             Console.WriteLine("Addition unsuccessfull");
             Console.ReadLine();
-            return;
+            Console.Clear();
         }
     }
 }

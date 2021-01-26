@@ -81,16 +81,16 @@ namespace EFCore.Presentation.Actions.BillActions
 
                 sale.SaleDate = DateTime.Now;
                 sale.Ammount = ammount;
-                if (ammount > sale.Offer.AmmountLeft)
-                    ammount = sale.Offer.AmmountLeft;
+                if (ammount > offer.AmmountLeft)
+                    ammount = offer.AmmountLeft;
+                sale.Offer = offer;
+                sale.OfferId = offer.Id;
                 sale.Offer.AmmountLeft -= ammount;
                 sale.Offer.AmmountSold += ammount;
                 sale.SaleType = Data.Enums.SaleType.Subscription;
                 sale.StartTime = DateTime.Now;
                 sale.EndTime = DateTime.Now.AddMonths(ammount);
                 sale.Validity = true;
-                sale.Offer = offer;
-                sale.OfferId = offer.Id;
                 sale.Bill = bill;
                 sale.BillId = bill.Id;
                 _saleRepository.Add(sale);

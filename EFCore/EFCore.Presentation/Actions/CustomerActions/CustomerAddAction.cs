@@ -42,11 +42,13 @@ namespace EFCore.Presentation.Actions.CustomerActions
             {
                 PrintHelpers.PrintCustomer(customer);
                 Console.ReadLine();
+                Console.Clear();
                 return;
             }
 
             Console.WriteLine("Failed to save customer, no changes applied");
             Console.ReadLine();
+            Console.Clear();
         }
     }
 }

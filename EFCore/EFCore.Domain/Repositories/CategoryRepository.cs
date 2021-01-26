@@ -60,9 +60,9 @@ namespace EFCore.Domain.Repositories
                 return ResponseResultType.NotFound;
             }
             var offer = DbContext.Offers.Find(offerId);
-            if (category == null)
+            if (offer.Categories.Contains(category))
             {
-                return ResponseResultType.NotFound;
+                return ResponseResultType.ValidationError;
             }
             offer.Categories.Add(category);
             category.Offers.Add(offer);

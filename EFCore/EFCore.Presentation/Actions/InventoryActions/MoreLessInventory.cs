@@ -27,6 +27,7 @@ namespace EFCore.Presentation.Actions.InventoryActions
             {
                 Console.WriteLine("wrong input");
                 Console.ReadLine();
+                Console.Clear();
                 return;
             }
             Console.WriteLine("Type in that number: ");
@@ -34,6 +35,7 @@ namespace EFCore.Presentation.Actions.InventoryActions
             {
                 Console.WriteLine("wrong input");
                 Console.ReadLine();
+                Console.Clear();
                 return;
             }
             var offers = new List<Offer>();
@@ -53,6 +55,7 @@ namespace EFCore.Presentation.Actions.InventoryActions
                 PrintHelpers.PrintOffer(offer);
             }
             Console.ReadLine();
+            Console.Clear();
         }
 
     }

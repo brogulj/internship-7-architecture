@@ -30,14 +30,20 @@ namespace EFCore.Presentation.Actions.OfferActions
             if (!ReadHelpers.TryReadNumber(out var offerId))
             {
                 Console.WriteLine("wrong input");
-                return;
+                Console.ReadLine();
+                Console.Clear();
             }
             if (_offerRepository.Delete(offerId)== Domain.Enums.ResponseResultType.Success)
             {
                 Console.WriteLine("successfully deleted the offer");
-            }else
+                Console.ReadLine();
+                Console.Clear();
+            }
+            else
             {
                 Console.WriteLine("Offer not deleted");
+                Console.ReadLine();
+                Console.Clear();
             }
         }
     }
